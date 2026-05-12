@@ -1,0 +1,135 @@
+/* SkyPulse - Advanced Creative Styles */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary: #0f172a;
+    --bg-slate: #f8fafc;
+    --accent: #38bdf8;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    background-color: var(--bg-slate);
+    color: #1e293b;
+}
+
+.text-glow {
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+.font-arabic {
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* Glassmorphism */
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Nav Link Hover Effect */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 10px;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f7ff;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 20px;
+    border: 3px solid #f1f7ff;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Vertical Text Helper */
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Reveal transition */
+section {
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+section.opacity-0 {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+section.animate-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Selection */
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
+/* Advanced Card Hover */
+.city-card img {
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.city-card:hover img {
+    transform: scale(1.1) rotate(1deg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 4rem !important;
+    }
+}

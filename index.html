@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyPulse - طيران سكاي بلس | اكتشف العالم</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#0f172a',
+                        accent: '#38bdf8',
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '3rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <meta name="description" content="SkyPulse - تجربة سفر فاخرة وعروض طيران حصرية. احجز رحلتك القادمة الآن بأفضل الأسعار.">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 selection:bg-blue-600 selection:text-white overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center transition-opacity duration-700">
+        <div class="relative">
+            <div class="w-24 h-24 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+            <i data-lucide="plane" class="absolute inset-0 m-auto w-8 h-8 text-blue-500 rotate-45"></i>
+        </div>
+    </div>
+    <script>
+        // Emergency fallback to remove preloader if JS fails
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            if (preloader && !preloader.classList.contains('opacity-0')) {
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }, 3000);
+    </script>
+
+    <!-- Home Page Content -->
+    <div id="home-page">
+        <!-- Top Bar -->
+        <div class="hidden lg:block bg-slate-900 text-white/60 py-2 border-b border-white/5 text-[10px] font-black uppercase tracking-widest">
+            <div class="max-w-7xl mx-auto px-4 lg:px-8 flex justify-between items-center">
+                <div class="flex gap-8">
+                    <div class="flex items-center gap-2 group cursor-pointer">
+                        <i data-lucide="phone" class="w-3 h-3 text-blue-500 group-hover:scale-110 transition-transform"></i>
+                        <span class="group-hover:text-white transition-colors">+1 800 SKY-PULSE</span>
+                    </div>
+                    <div class="flex items-center gap-2 group cursor-pointer">
+                        <i data-lucide="mail" class="w-3 h-3 text-blue-500 group-hover:scale-110 transition-transform"></i>
+                        <span class="group-hover:text-white transition-colors">help@skypulse.com</span>
+                    </div>
+                </div>
+                <div class="flex gap-8 items-center">
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-white transition-colors">
+                        <i data-lucide="languages" class="w-3 h-3"></i>
+                        <span>العربية</span>
+                    </div>
+                    <div class="h-3 w-[1px] bg-white/10"></div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-white transition-colors">
+                        <span>USD</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav id="navbar" class="fixed top-0 lg:top-8 left-0 right-0 z-50 transition-all duration-500 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass rounded-3xl px-6 py-4 flex justify-between items-center shadow-2xl border-white/10">
+                    <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                        <div id="logo-bg" class="p-2.5 rounded-xl bg-blue-600 shadow-lg flex items-center justify-center group-hover:rotate-[360deg] transition-all duration-700">
+                            <i data-lucide="plane" class="text-white w-6 h-6 rotate-45"></i>
+                        </div>
+                        <span id="logo-text" class="text-2xl font-black tracking-tighter text-white">SkyPulse</span>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center gap-10">
+                        <a href="#hero" class="nav-link text-sm font-black text-white/80 hover:text-white transition-all relative group">الرئيسية</a>
+                        <a href="#featured-cities" class="nav-link text-sm font-black text-white/80 hover:text-white transition-all relative group">الوجهات</a>
+                        <a href="#offers" class="nav-link text-sm font-black text-white/80 hover:text-white transition-all relative group">العروض</a>
+                        <a href="#flight-tracker" class="nav-link text-sm font-black text-white/80 hover:text-white transition-all relative group">تتبع الرحلات</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-4">
+                        <button class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 text-white transition-all"><i data-lucide="search" class="w-5 h-5"></i></button>
+                        <button onclick="showAuthPage()" id="login-btn" class="flex items-center gap-3 px-8 py-3.5 rounded-2xl font-black transition-all shadow-xl bg-white text-blue-600 hover:scale-105 active:scale-95">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                            <span>تسجيل الدخول</span>
+                        </button>
+                    </div>
+
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-3 rounded-2xl bg-white/10 backdrop-blur-md transition-all active:scale-90 relative z-[60]">
+                        <i data-lucide="menu" id="menu-icon" class="text-white w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="fixed inset-0 z-[55] bg-slate-900/95 backdrop-blur-xl flex flex-col items-center justify-center gap-10 transition-all duration-500 opacity-0 pointer-events-none">
+            <a href="#hero" onclick="toggleMobileMenu()" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">الرئيسية</a>
+            <a href="#featured-cities" onclick="toggleMobileMenu()" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">الوجهات</a>
+            <a href="#offers" onclick="toggleMobileMenu()" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">العروض</a>
+            <a href="#flight-tracker" onclick="toggleMobileMenu()" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">تتبع الرحلات</a>
+            <button onclick="showAuthPage(); toggleMobileMenu();" class="px-10 py-5 bg-blue-600 text-white rounded-3xl font-black text-xl shadow-2xl">تسجيل الدخول</button>
+        </div>
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-slate-50 z-10"></div>
+                <video autoplay muted loop class="w-full h-full object-cover brightness-50">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-seen-from-an-airplane-window-4346-large.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="relative z-20 w-full max-w-7xl mx-auto px-4 text-center mt-[-10vh]">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-500/30 text-blue-300 text-xs font-black uppercase tracking-widest mb-8 animate-fade-in">
+                    <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                    اكتشف وجهات جديدة لعام 2026
+                </div>
+                <h1 class="text-6xl md:text-9xl font-black text-white mb-8 tracking-tighter leading-none text-glow animate-fade-in" style="animation-delay: 0.2s">حلق بعيداً <br /><span class="text-blue-400">بأحلامك</span></h1>
+                
+                <!-- Advanced Search Form -->
+                <div class="mt-12 animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="bg-white rounded-5xl shadow-2xl p-4 lg:p-8 w-full max-w-6xl mx-auto border border-white/20 text-right">
+                        <!-- Trip Type Tabs -->
+                        <div class="flex gap-4 mb-8 justify-end" id="trip-type-tabs">
+                            <button onclick="setTripType('round')" class="trip-tab px-6 py-2.5 rounded-xl bg-blue-600 text-white font-black text-sm transition-all" data-type="round">ذهاب وعودة</button>
+                            <button onclick="setTripType('one-way')" class="trip-tab px-6 py-2.5 rounded-xl bg-slate-100 text-slate-500 font-black text-sm hover:bg-slate-200 transition-all" data-type="one-way">ذهاب فقط</button>
+                            <button onclick="setTripType('multi')" class="trip-tab px-6 py-2.5 rounded-xl bg-slate-100 text-slate-500 font-black text-sm hover:bg-slate-200 transition-all" data-type="multi">وجهات متعددة</button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+                            <!-- From -->
+                            <div class="lg:col-span-1.5 space-y-2 p-4 bg-slate-50 rounded-3xl border border-slate-100 group focus-within:border-blue-400 transition-all">
+                                <div class="flex items-center justify-between text-slate-400">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">المغادرة</span>
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                </div>
+                                <input type="text" id="input-from" placeholder="منين؟" class="w-full bg-transparent font-black text-slate-900 outline-none text-xl placeholder:text-slate-300">
+                            </div>
+
+                            <!-- Swap Btn -->
+                            <div class="hidden lg:flex items-center justify-center -mx-6 z-10">
+                                <button class="w-10 h-10 rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center text-blue-600 hover:rotate-180 transition-all duration-500">
+                                    <i data-lucide="repeat" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+
+                            <!-- To -->
+                            <div class="lg:col-span-1.5 space-y-2 p-4 bg-slate-50 rounded-3xl border border-slate-100 group focus-within:border-blue-400 transition-all">
+                                <div class="flex items-center justify-between text-slate-400">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">الوصول</span>
+                                    <i data-lucide="plane-landing" class="w-4 h-4"></i>
+                                </div>
+                                <input type="text" id="input-to" placeholder="لفين؟" class="w-full bg-transparent font-black text-slate-900 outline-none text-xl placeholder:text-slate-300">
+                            </div>
+
+                            <!-- Dates -->
+                            <div class="lg:col-span-1 space-y-2 p-4 bg-slate-50 rounded-3xl border border-slate-100 group focus-within:border-blue-400 transition-all">
+                                <div class="flex items-center justify-between text-slate-400">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">التواريخ</span>
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                </div>
+                                <input type="text" placeholder="اختر التاريخ" readonly class="w-full bg-transparent font-black text-slate-900 outline-none text-lg cursor-pointer" onclick="this.type='date'">
+                            </div>
+
+                            <!-- Passengers -->
+                            <div class="lg:col-span-0.75 space-y-2 p-4 bg-slate-50 rounded-3xl border border-slate-100 group focus-within:border-blue-400 transition-all cursor-pointer relative" onclick="togglePassengerPicker()">
+                                <div class="flex items-center justify-between text-slate-400">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">المسافرون</span>
+                                    <i data-lucide="users" class="w-4 h-4"></i>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="passenger-count" class="font-black text-slate-900 text-lg">1</span>
+                                    <span class="text-slate-500 text-xs font-bold">مسافر</span>
+                                </div>
+
+                                <!-- Passenger Picker Dropdown (OPEN UPWARDS) -->
+                                <div id="passenger-picker" class="hidden absolute bottom-full left-0 right-0 mb-4 bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 z-[60] animate-fade-in text-right min-w-[200px]">
+                                    <div class="space-y-6">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-3">
+                                                <button onclick="updateCount('adult', -1, event)" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600">-</button>
+                                                <span id="count-adult" class="font-black text-slate-900 w-4 text-center">1</span>
+                                                <button onclick="updateCount('adult', 1, event)" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600">+</button>
+                                            </div>
+                                            <div>
+                                                <div class="font-black text-slate-900">بالغين</div>
+                                                <div class="text-[10px] text-slate-400 font-bold">أكبر من 12 سنة</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-3">
+                                                <button onclick="updateCount('child', -1, event)" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600">-</button>
+                                                <span id="count-child" class="font-black text-slate-900 w-4 text-center">0</span>
+                                                <button onclick="updateCount('child', 1, event)" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600">+</button>
+                                            </div>
+                                            <div>
+                                                <div class="font-black text-slate-900">أطفال</div>
+                                                <div class="text-[10px] text-slate-400 font-bold">2 - 12 سنة</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flight Class Selection (DEDICATED) -->
+                            <div class="lg:col-span-0.75 space-y-2 p-4 bg-slate-50 rounded-3xl border border-slate-100 group focus-within:border-blue-400 transition-all cursor-pointer relative" onclick="togglePicker('class-picker')">
+                                <div class="flex items-center justify-between text-slate-400">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">الدرجة</span>
+                                    <i data-lucide="crown" class="w-4 h-4"></i>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="flight-class-display" class="font-black text-slate-900 text-lg whitespace-nowrap">سياحية</span>
+                                </div>
+
+                                <!-- Class Picker Dropdown (OPEN UPWARDS) -->
+                                <div id="class-picker" class="hidden absolute bottom-full left-0 right-0 mb-4 bg-white rounded-3xl shadow-2xl border border-slate-100 p-4 z-[60] animate-fade-in text-right min-w-[150px]">
+                                    <div class="flex flex-col gap-2">
+                                        <button onclick="setFlightClass('سياحية', event)" class="class-btn w-full text-right px-4 py-3 rounded-2xl bg-blue-50 text-blue-600 border border-blue-600 font-black text-xs">الدرجة السياحية</button>
+                                        <button onclick="setFlightClass('أعمال', event)" class="class-btn w-full text-right px-4 py-3 rounded-2xl bg-slate-50 text-slate-500 border border-slate-100 font-black text-xs hover:bg-slate-100">درجة الأعمال</button>
+                                        <button onclick="setFlightClass('الأولى', event)" class="class-btn w-full text-right px-4 py-3 rounded-2xl bg-slate-50 text-slate-500 border border-slate-100 font-black text-xs hover:bg-slate-100">الدرجة الأولى</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Search Btn -->
+                            <div class="lg:col-span-0.5 flex items-stretch">
+                                <button onclick="handleSearch()" class="w-full lg:w-20 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl shadow-xl shadow-blue-200 flex items-center justify-center transition-all group active:scale-95">
+                                    <i data-lucide="arrow-left" class="w-8 h-8 group-hover:-translate-x-2 transition-transform"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Down -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-slate-400">
+                <span class="text-[10px] font-black uppercase tracking-widest vertical-text">استكشف</span>
+                <div class="w-[1px] h-20 bg-gradient-to-b from-slate-400 to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="bg-white py-12 border-y border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-12 md:gap-24">
+                <div class="text-center">
+                    <div class="text-4xl font-black text-slate-900 mb-1">500+</div>
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">وجهة عالمية</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-slate-900 mb-1">2M+</div>
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">مسافر سعيد</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-slate-900 mb-1">24/7</div>
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">دعم فني</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black text-slate-900 mb-1">100%</div>
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">أمان وخصوصية</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Cities -->
+        <section id="featured-cities" class="py-32 bg-slate-50 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="max-w-7xl mx-auto px-4 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+                    <div class="text-right">
+                        <span class="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-4 block">وجهاتنا العالمية</span>
+                        <h2 class="text-5xl md:text-7xl font-black text-slate-900 leading-tight">أين ستكون <br /><span class="text-slate-400 italic">مغامرتك القادمة؟</span></h2>
+                    </div>
+                    <p class="text-slate-500 font-bold max-w-md text-right mt-8 md:mt-0 leading-relaxed">اكتشف مجموعتنا المختارة بعناية من الوجهات التي تجمع بين الجمال، الثقافة، والترفيه في كل ركن من أركان المعمورة.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- City 1 -->
+                    <div class="group relative h-[550px] rounded-5xl overflow-hidden shadow-2xl cursor-pointer hover:-translate-y-4 transition-all duration-700">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/10 to-transparent"></div>
+                        <div class="absolute top-8 left-8">
+                            <div class="glass p-4 rounded-3xl text-center">
+                                <span class="block text-[10px] font-black text-white/60 uppercase">تبدأ من</span>
+                                <span class="text-2xl font-black text-white">$299</span>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 p-10 text-right">
+                            <div class="flex items-center justify-end gap-2 text-blue-400 mb-4 font-black text-xs tracking-widest uppercase">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i>
+                                الولايات المتحدة
+                            </div>
+                            <h3 class="text-4xl font-black text-white mb-4">نيويورك</h3>
+                            <button class="flex items-center gap-2 text-white/60 font-bold group-hover:text-blue-400 transition-colors">
+                                <span>اكتشف الرحلات</span>
+                                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-2 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- City 2 -->
+                    <div class="group relative h-[550px] rounded-5xl overflow-hidden shadow-2xl cursor-pointer hover:-translate-y-4 transition-all duration-700">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2073&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:-rotate-1">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/10 to-transparent"></div>
+                        <div class="absolute top-8 left-8">
+                            <div class="glass p-4 rounded-3xl text-center">
+                                <span class="block text-[10px] font-black text-white/60 uppercase">تبدأ من</span>
+                                <span class="text-2xl font-black text-white">$450</span>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 p-10 text-right">
+                            <div class="flex items-center justify-end gap-2 text-blue-400 mb-4 font-black text-xs tracking-widest uppercase">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i>
+                                فرنسا
+                            </div>
+                            <h3 class="text-4xl font-black text-white mb-4">باريس</h3>
+                            <button class="flex items-center gap-2 text-white/60 font-bold group-hover:text-blue-400 transition-colors">
+                                <span>اكتشف الرحلات</span>
+                                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-2 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- City 3 -->
+                    <div class="group relative h-[550px] rounded-5xl overflow-hidden shadow-2xl cursor-pointer hover:-translate-y-4 transition-all duration-700">
+                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/10 to-transparent"></div>
+                        <div class="absolute top-8 left-8">
+                            <div class="glass p-4 rounded-3xl text-center">
+                                <span class="block text-[10px] font-black text-white/60 uppercase">تبدأ من</span>
+                                <span class="text-2xl font-black text-white">$320</span>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 p-10 text-right">
+                            <div class="flex items-center justify-end gap-2 text-blue-400 mb-4 font-black text-xs tracking-widest uppercase">
+                                <i data-lucide="map-pin" class="w-3 h-3"></i>
+                                اليابان
+                            </div>
+                            <h3 class="text-4xl font-black text-white mb-4">طوكيو</h3>
+                            <button class="flex items-center gap-2 text-white/60 font-bold group-hover:text-blue-400 transition-colors">
+                                <span>اكتشف الرحلات</span>
+                                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-2 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Flight Tracker Section -->
+        <section id="flight-tracker" class="py-32 bg-slate-900 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-10"></div>
+            <div class="max-w-7xl mx-auto px-4 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                    <div class="text-right">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-6">
+                            تكنولوجيا رائدة
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">تتبع رحلتك <br /><span class="text-blue-500">مباشرة على الخريطة</span></h2>
+                        <p class="text-slate-400 font-bold text-lg leading-relaxed mb-10">استمتع براحة البال من خلال مراقبة مسار رحلتك، سرعتها، وارتفاعها لحظة بلحظة باستخدام أنظمة الرادار المتقدمة لدينا.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start justify-end gap-6 group">
+                                <div class="text-right">
+                                    <h4 class="text-white font-black text-xl mb-2">تحديثات فورية</h4>
+                                    <p class="text-slate-500 font-bold">استلم إشعارات مباشرة عن أي تغيير في المواعيد أو البوابات.</p>
+                                </div>
+                                <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                    <i data-lucide="bell" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-start justify-end gap-6 group">
+                                <div class="text-right">
+                                    <h4 class="text-white font-black text-xl mb-2">خرائط تفاعلية</h4>
+                                    <p class="text-slate-500 font-bold">شاهد مسار الطائرة حول العالم بتقنية ثلاثية الأبعاد.</p>
+                                </div>
+                                <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                    <i data-lucide="map" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-blue-500/20 blur-[120px] rounded-full group-hover:bg-blue-500/30 transition-all duration-700"></div>
+                        <div class="relative bg-slate-800 rounded-5xl border border-white/5 p-4 shadow-3xl overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop" class="w-full rounded-4xl grayscale brightness-75 hover:grayscale-0 transition-all duration-1000">
+                            <!-- Animated Dots simulating flights -->
+                            <div class="absolute top-1/4 left-1/3 w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,1)] animate-ping"></div>
+                            <div class="absolute bottom-1/3 right-1/4 w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,1)] animate-ping" style="animation-delay: 1s"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offers & Experiences -->
+        <section id="offers" class="py-32 bg-white relative">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-24">
+                    <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-6">تجارب استثنائية</h2>
+                    <p class="text-slate-500 font-bold text-lg max-w-2xl mx-auto leading-relaxed">نحن لا نقدم مجرد تذاكر طيران، بل نصنع لك ذكريات تدوم مدى الحياة مع عروضنا الحصرية وخدماتنا المتميزة.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="relative group overflow-hidden rounded-5xl bg-blue-600 min-h-[500px] flex flex-col justify-end p-12 text-white">
+                        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/10 to-transparent"></div>
+                        <div class="relative z-10 text-right">
+                            <span class="inline-block px-4 py-2 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-xs font-black uppercase tracking-widest mb-6">عرض الشتاء</span>
+                            <h3 class="text-4xl font-black mb-6 leading-tight">سافر مع العائلة <br /> واحصل على خصم 30%</h3>
+                            <p class="text-blue-100 font-bold text-lg mb-8 max-w-sm ml-auto">اجعل عطلتك القادمة مميزة مع باقاتنا العائلية الشاملة التي تضمن الراحة للجميع.</p>
+                            <button class="px-10 py-5 bg-white text-blue-600 rounded-2xl font-black hover:scale-105 transition-all shadow-xl shadow-blue-900/20">احجز الآن</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-rows-2 gap-8">
+                        <div class="relative group overflow-hidden rounded-5xl bg-slate-900 p-10 flex items-center justify-between gap-10 text-white border border-slate-800">
+                            <div class="relative z-10 text-right">
+                                <h3 class="text-3xl font-black mb-4">درجة الأعمال</h3>
+                                <p class="text-slate-400 font-bold mb-6">الراحة والخصوصية التي تستحقها في رحلاتك الطويلة.</p>
+                                <button class="text-blue-400 font-black flex items-center gap-2 justify-end hover:gap-4 transition-all">
+                                    <span>استكشف المزايا</span>
+                                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <div class="w-40 h-40 flex-shrink-0 bg-blue-600/10 rounded-full flex items-center justify-center border border-blue-500/20 relative">
+                                <i data-lucide="crown" class="w-16 h-16 text-blue-500 relative z-10"></i>
+                                <div class="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="relative group overflow-hidden rounded-5xl bg-slate-50 p-10 flex items-center justify-between gap-10 text-slate-900 border border-slate-200">
+                            <div class="relative z-10 text-right">
+                                <h3 class="text-3xl font-black mb-4">برنامج الولاء</h3>
+                                <p class="text-slate-500 font-bold mb-6">اجمع النقاط واستبدلها برحلات مجانية وترقيات فورية.</p>
+                                <button class="text-blue-600 font-black flex items-center gap-2 justify-end hover:gap-4 transition-all">
+                                    <span>انضم إلينا</span>
+                                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <div class="w-40 h-40 flex-shrink-0 bg-slate-200 rounded-full flex items-center justify-center border border-slate-300">
+                                <i data-lucide="award" class="w-16 h-16 text-slate-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-32 bg-slate-50 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex flex-col md:flex-row gap-20 items-center">
+                    <div class="w-full md:w-1/2 relative">
+                        <div class="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+                        <div class="relative grid grid-cols-2 gap-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" class="w-full h-80 object-cover rounded-4xl mt-12 shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" class="w-full h-80 object-cover rounded-4xl shadow-2xl">
+                        </div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 glass p-8 rounded-5xl border-white/40 shadow-3xl text-center min-w-[250px]">
+                            <div class="flex justify-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            </div>
+                            <div class="text-3xl font-black text-slate-900 mb-1">4.9/5</div>
+                            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">تقييم العملاء</div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 text-right">
+                        <i data-lucide="quote" class="w-16 h-16 text-blue-100 mb-8 rotate-180"></i>
+                        <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">ماذا يقول <br /> مسافرونا؟</h2>
+                        <div class="relative">
+                            <p class="text-2xl font-bold text-slate-600 leading-relaxed italic mb-10">"كانت رحلتي مع سكاي بلس من أفضل التجارب التي خضتها على الإطلاق. الاهتمام بالتفاصيل، الراحة في المقاعد، والخدمة المميزة جعلت من الرحلة الطويلة متعة حقيقية."</p>
+                            <div class="flex items-center justify-end gap-4">
+                                <div class="text-right">
+                                    <div class="font-black text-slate-900 text-xl">سارة الأحمد</div>
+                                    <div class="text-slate-500 font-bold">مصورة رحلات</div>
+                                </div>
+                                <div class="w-14 h-14 rounded-full bg-blue-600"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4 mt-16 justify-end">
+                            <button class="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">
+                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                            </button>
+                            <button class="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">
+                                <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter / CTA -->
+        <section class="py-20 px-4">
+            <div class="max-w-7xl mx-auto relative rounded-5xl overflow-hidden bg-slate-900 py-24 px-8 md:px-20 text-center">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 brightness-50"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-7xl font-black text-white mb-8 leading-tight">مستعد للبدء <br /> بمغامرتك؟</h2>
+                    <p class="text-slate-300 font-bold text-xl mb-12 max-w-2xl mx-auto">انضم إلى عائلة سكاي بلس اليوم واحصل على خصم 15% على أول رحلة تقوم بحجزها معنا.</p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+                        <button class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black hover:scale-105 transition-all shadow-2xl shadow-blue-900/40 flex-1">اشترك الآن مجاناً</button>
+                        <div class="flex-1 relative">
+                            <input type="email" placeholder="بريدك الإلكتروني" class="w-full h-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-8 py-5 text-white font-bold outline-none focus:border-blue-500 transition-all text-right" dir="ltr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-50 pt-24 pb-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 mb-24 text-right">
+                    <div class="lg:col-span-1">
+                        <div class="flex items-center gap-3 justify-end mb-8">
+                            <span class="text-3xl font-black tracking-tighter text-slate-900">SkyPulse</span>
+                            <div class="p-2.5 rounded-xl bg-blue-600 flex items-center justify-center">
+                                <i data-lucide="plane" class="text-white w-6 h-6 rotate-45"></i>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 font-bold leading-relaxed mb-8">نحن نعيد تعريف مفهوم السفر الجوي من خلال الجمع بين الفخامة، التكنولوجيا، والالتزام بأعلى معايير السلامة.</p>
+                        <div class="flex gap-4 justify-end">
+                            <a href="#" class="w-12 h-12 rounded-2xl bg-white shadow-md flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-2xl bg-white shadow-md flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-2xl bg-white shadow-md flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-black text-slate-900 mb-8 uppercase tracking-widest">اكتشف</h4>
+                        <ul class="space-y-4 text-slate-500 font-bold">
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">كل الوجهات</a></li>
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">العروض الموسمية</a></li>
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">باقات العطلات</a></li>
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">درجة الأعمال</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-black text-slate-900 mb-8 uppercase tracking-widest">الدعم</h4>
+                        <ul class="space-y-4 text-slate-500 font-bold">
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">مركز المساعدة</a></li>
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">تتبع الرحلات</a></li>
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">سياسة الإلغاء</a></li>
+                            <li><a href="#" class="hover:text-blue-600 transition-colors">تواصل معنا</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-black text-slate-900 mb-8 uppercase tracking-widest">المكتب الرئيسي</h4>
+                        <ul class="space-y-6 text-slate-500 font-bold">
+                            <li class="flex items-start justify-end gap-4">
+                                <span>برج خليفة، دبي، <br /> الإمارات العربية المتحدة</span>
+                                <i data-lucide="map-pin" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                            </li>
+                            <li class="flex items-center justify-end gap-4">
+                                <span>+971 4 123 4567</span>
+                                <i data-lucide="phone" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 font-bold text-sm">
+                    <p>© 2026 سكاي بلس للطيران. صنع بكل حب للمسافرين.</p>
+                    <div class="flex gap-8">
+                        <a href="#" class="hover:text-slate-900">سياسة الخصوصية</a>
+                        <a href="#" class="hover:text-slate-900">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Auth Page (REIMAGINED CREATIVE DESIGN) -->
+    <div id="auth-page" class="hidden min-h-screen relative flex items-center justify-center p-6 overflow-hidden">
+        <!-- Immersive Dynamic Background -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1464039397811-476f652a343b?q=80&w=2068&auto=format&fit=crop" class="w-full h-full object-cover brightness-50 scale-110">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-slate-900/60 backdrop-blur-md"></div>
+            
+            <!-- Floating Decorative Elements -->
+            <div class="absolute top-1/4 left-10 w-32 h-32 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s"></div>
+        </div>
+
+        <!-- Creative Glass Card -->
+        <div class="relative z-10 w-full max-w-xl animate-fade-in">
+            <div class="glass rounded-[3.5rem] p-8 md:p-14 border-white/20 shadow-[0_32px_64px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative">
+                <!-- Inner Glow -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex flex-col items-center mb-12">
+                        <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-600/40 rotate-12 mb-6 group hover:rotate-0 transition-transform duration-500">
+                            <i data-lucide="plane" class="text-white w-10 h-10 rotate-45"></i>
+                        </div>
+                        <h2 id="auth-title" class="text-4xl font-black text-white mb-3 text-center tracking-tighter">مرحباً بك في السماء</h2>
+                        <p id="auth-subtitle" class="text-blue-200 font-bold text-center opacity-80">سجل دخولك لتبدأ مغامرتك القادمة</p>
+                    </div>
+
+                    <form id="auth-form" class="space-y-6" onsubmit="event.preventDefault()">
+                        <div id="name-field" class="hidden space-y-2 animate-fade-in">
+                            <label class="text-[10px] font-black text-blue-200 uppercase tracking-[0.3em] mr-4">الاسم الكامل</label>
+                            <div class="group relative">
+                                <div class="absolute inset-y-0 right-0 pr-5 flex items-center pointer-events-none text-blue-300 group-focus-within:text-white transition-colors">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                </div>
+                                <input type="text" placeholder="أدخل اسمك بالكامل" class="w-full pr-14 pl-6 py-5 bg-white/10 border border-white/10 rounded-3xl text-white font-bold outline-none focus:bg-white/20 focus:border-white/30 transition-all placeholder:text-white/30 text-right">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-blue-200 uppercase tracking-[0.3em] mr-4">البريد الإلكتروني</label>
+                            <div class="group relative">
+                                <div class="absolute inset-y-0 right-0 pr-5 flex items-center pointer-events-none text-blue-300 group-focus-within:text-white transition-colors">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <input type="email" placeholder="example@mail.com" class="w-full pr-14 pl-6 py-5 bg-white/10 border border-white/10 rounded-3xl text-white font-bold outline-none focus:bg-white/20 focus:border-white/30 transition-all placeholder:text-white/30 text-left" dir="ltr">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-blue-200 uppercase tracking-[0.3em] mr-4">كلمة المرور</label>
+                            <div class="group relative">
+                                <div class="absolute inset-y-0 right-0 pr-5 flex items-center pointer-events-none text-blue-300 group-focus-within:text-white transition-colors">
+                                    <i data-lucide="lock" class="w-5 h-5"></i>
+                                </div>
+                                <input type="password" id="auth-password" placeholder="••••••••" class="w-full pr-14 pl-14 py-5 bg-white/10 border border-white/10 rounded-3xl text-white font-bold outline-none focus:bg-white/20 focus:border-white/30 transition-all placeholder:text-white/30 text-left" dir="ltr">
+                                <div class="absolute inset-y-0 left-0 pl-5 flex items-center">
+                                    <i data-lucide="eye" id="toggle-password" class="text-white/40 w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center py-2">
+                            <div class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" id="remember" class="w-5 h-5 rounded-lg border-white/20 bg-white/10 text-blue-600 focus:ring-blue-500">
+                                <label for="remember" class="text-sm font-bold text-blue-200 opacity-80 cursor-pointer">تذكرني دائماً</label>
+                            </div>
+                            <a href="#" id="forgot-pass-link" class="text-sm font-black text-blue-400 hover:text-white transition-colors underline decoration-blue-400/30 underline-offset-4">نسيت كلمة المرور؟</a>
+                        </div>
+
+                        <button id="auth-submit" class="w-full py-6 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl font-black text-xl shadow-2xl shadow-blue-900/40 transition-all transform hover:-translate-y-1 active:scale-[0.98] relative overflow-hidden group">
+                            <span class="relative z-10">تسجيل الدخول</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        </button>
+                    </form>
+
+                    <div class="mt-12 text-center">
+                        <p class="text-blue-100/60 font-bold">
+                            <span id="auth-switch-text">ليس لديك حساب بعد؟</span>
+                            <button onclick="toggleAuthMode()" id="auth-switch-btn" class="text-white hover:text-blue-400 underline decoration-blue-400/30 underline-offset-8 font-black mr-2 transition-colors">أنشئ حسابك الآن</button>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer Back Button -->
+                <button onclick="showHomePage()" class="mt-12 w-full flex items-center justify-center gap-2 text-white/40 hover:text-white transition-colors text-sm font-bold group">
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Objects -->
+        <div class="absolute bottom-10 left-10 text-white/5 pointer-events-none">
+            <i data-lucide="plane" class="w-64 h-64 -rotate-12"></i>
+        </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-10 left-10 w-16 h-16 bg-blue-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+        <i data-lucide="message-circle" class="w-8 h-8 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 border-4 border-white rounded-full"></span>
+    </button>
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="hidden fixed bottom-28 left-10 w-96 bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-slate-100 overflow-hidden z-50 animate-fade-in">
+        <div class="bg-blue-600 p-6 text-white flex items-center justify-between">
+            <div class="flex items-center gap-3 text-right">
+                <div>
+                    <div class="font-black">الدعم الفني المباشر</div>
+                    <div class="text-[10px] font-bold opacity-70">متصل الآن - نرد خلال دقائق</div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-white/60 hover:text-white transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+        </div>
+        <div class="h-80 p-6 bg-slate-50 overflow-y-auto flex flex-col gap-4 text-right" id="chat-messages">
+            <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tr-none self-end max-w-[80%] font-bold text-sm shadow-md">
+                مرحباً بك في سكاي بلس! كيف يمكنني مساعدتك اليوم؟
+            </div>
+        </div>
+        <div class="p-4 bg-white border-t border-slate-100 flex gap-2">
+            <button onclick="sendMessage()" class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
+            <input type="text" id="chat-input" placeholder="اكتب رسالتك هنا..." class="flex-1 bg-slate-50 rounded-xl px-4 py-2 outline-none focus:border-blue-500 border border-transparent transition-all text-right font-bold">
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
