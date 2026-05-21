@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyPulse - طيران سكاي بلس | اكتشف العالم</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Tailwind via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -37,7 +36,6 @@
         </div>
     </div>
     <script>
-        // Emergency fallback to remove preloader if JS fails
         setTimeout(() => {
             const preloader = document.getElementById('preloader');
             if (preloader && !preloader.classList.contains('opacity-0')) {

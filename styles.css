@@ -17,6 +17,13 @@ body {
     color: #1e293b;
 }
 
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
 .text-glow {
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
 }
@@ -130,6 +137,28 @@ section.animate-fade-in {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     h1 {
-        font-size: 4rem !important;
+        font-size: clamp(2.7rem, 14vw, 4rem) !important;
+    }
+
+    .vertical-text {
+        display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    h1 {
+        font-size: clamp(2.25rem, 13vw, 3.25rem) !important;
+        line-height: 1.05 !important;
+    }
+
+    .glass {
+        border-radius: 22px;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        max-width: 100%;
     }
 }

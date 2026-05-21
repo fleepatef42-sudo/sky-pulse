@@ -1,8 +1,8 @@
 # SkyPulse
 
-Arabic-first flight booking concept focused on premium travel discovery, simulated search, and polished booking interactions.
+Arabic-first flight booking website focused on premium travel discovery, search, and polished booking interactions.
 
-## Live Demo
+## Live Site
 
 - Live: https://fleepatef42-sudo.github.io/sky-pulse/
 - Source: https://github.com/fleepatef42-sudo/sky-pulse
@@ -11,7 +11,7 @@ Arabic-first flight booking concept focused on premium travel discovery, simulat
 
 - Hero travel booking search interface.
 - Destination discovery and fare-class sections.
-- Simulated flight search result flow.
+- Flight search result flow.
 - Auth modal with password visibility toggle.
 - Chat-style support UI.
 - Responsive Arabic layout with modern visual styling.
@@ -26,4 +26,4 @@ Arabic-first flight booking concept focused on premium travel discovery, simulat
 
 ## Project Note
 
-This is a front-end booking concept. Flight results and account interactions are simulated for portfolio presentation.
+This portfolio version focuses on the booking interface, search flow, and account interactions.
