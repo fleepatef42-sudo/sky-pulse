@@ -162,3 +162,21 @@ section.animate-fade-in {
         max-width: 100%;
     }
 }
+
+@media (min-width: 1440px) {
+    section > .container,
+    header > .container {
+        max-width: 1440px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .city-card,
+    .glass {
+        min-width: 0;
+    }
+
+    .grid {
+        min-width: 0;
+    }
+}
