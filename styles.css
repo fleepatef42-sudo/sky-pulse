@@ -180,3 +180,51 @@ section.animate-fade-in {
         min-width: 0;
     }
 }
+
+/* Compact fixed navigation across small, large, and XL screens */
+@media (max-width: 640px) {
+    #navbar {
+        padding-top: 0.6rem !important;
+        padding-bottom: 0.6rem !important;
+    }
+
+    #navbar .glass {
+        padding: 0.65rem 0.9rem !important;
+        border-radius: 1.25rem !important;
+    }
+
+    #logo-bg {
+        padding: 0.5rem !important;
+        border-radius: 0.8rem !important;
+    }
+
+    #logo-text {
+        font-size: 1.2rem !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    #navbar {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    #navbar .glass {
+        padding: 0.85rem 1.25rem !important;
+    }
+
+    #logo-text {
+        font-size: 1.35rem !important;
+    }
+}
+
+@media (min-width: 1440px) {
+    #navbar {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    #navbar .glass {
+        padding: 0.9rem 1.4rem !important;
+    }
+}
